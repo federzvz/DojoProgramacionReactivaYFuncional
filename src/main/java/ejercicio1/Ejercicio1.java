@@ -3,6 +3,7 @@ package ejercicio1;
 import java.security.Key;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.counting;
@@ -13,7 +14,6 @@ public class Ejercicio1 {
     static Map<String,String> correosMap = new HashMap<>();
 
     public Ejercicio1(){
-        for (Correo i : correoList) correosMap.put(i.correo, i.correo);
     }
 
     //a) Distinct: para ver si hay correo repetidos, si hay correos repetidos eliminarlos
@@ -62,44 +62,53 @@ public class Ejercicio1 {
     En la misma lista determinar si se envió un correo o no a cada uno de los correos,
     si se le envió cambiar el estado en la lista, todo esto respetando la inmutabilidad
      */
-    /*public void flatmapEstadosCorreo(List<Correo> lista){
-        List<String> correoAux = lista.stream()
-                .filter(c -> )
-                .collect(Collectors.toList());
-    }*/
+    public static void verificarEstados(){
+        List<Correo> auxList = new ArrayList<>();
+        correoList.stream().map(correo -> correo).forEach(x -> {
+            if(x.recibido==true){
+                Correo aux = new Correo(true,x.correo);
+                auxList.add(aux);
+            }
+            auxList.add(x);
+        });
+        correoList=auxList;
+    }
 
     public static void main(String[] args) {
-        //Crear una lista de mínimo 30 correos, de los cuales se le deben aplicar los siguientes operadores:
+        //Crear una lista de mínimo 30 correos
         correoList.add(new Correo("mathiaslabora@gmail.com", true));
-        correoList.add(new Correo("fede123@hotmail.com", true));
+        correoList.add(new Correo("fede123@hotmail.com", false));
         correoList.add(new Correo("latigresa@gmail.com", true));
         correoList.add(new Correo("carina25@hotmail.com", true));
         correoList.add(new Correo("maty_19@outlook.com", true));
         correoList.add(new Correo("laura@hotmail.com", true));
-        correoList.add(new Correo("pedrito12@gmail.com", true));
+        correoList.add(new Correo("pedrito12@gmail.com", false));
         correoList.add(new Correo("fernando_12@hotmail.com", true));
         correoList.add(new Correo("carlosEluno@gmail.com", true));
         correoList.add(new Correo("mathiaslabora@gmail.com", true));
-        correoList.add(new Correo("fede123@hotmail.com", true));
-        correoList.add(new Correo("elmanyasape@gmail.com", true));
+        correoList.add(new Correo("fede123@hotmail.com", false));
+        correoList.add(new Correo("elmanyasape@gmail.com", false));
         correoList.add(new Correo("luis99@outlook.com", true));
         correoList.add(new Correo("fefo15@hotmail.com", true));
         correoList.add(new Correo("critianoronaldo@gmail.com", true));
         correoList.add(new Correo("jesus666@hotmail.com", true));
         correoList.add(new Correo("diorrodri@outlook.com", true));
-        correoList.add(new Correo("fede123@hotmail.com", true));
+        correoList.add(new Correo("fede123@hotmail.com", false));
         correoList.add(new Correo("critianbolso@gmail.comm", true));
-        correoList.add(new Correo("fede123@hotmail.com", true));
+        correoList.add(new Correo("fede123@hotmail.com", false));
         correoList.add(new Correo("mathiaslabora@gmail.com", true));
-        correoList.add(new Correo("fede123@hotmail.com", true));
+        correoList.add(new Correo("fede123@hotmail.com", false));
         correoList.add(new Correo("aguantelacumbia@gmail.com", true));
         correoList.add(new Correo("fede123@outlook.com", true));
         correoList.add(new Correo("panconmortadela@gmail.com", true));
-        correoList.add(new Correo("fede123@hotmail.com", true));
+        correoList.add(new Correo("fede123@hotmail.com", false));
         correoList.add(new Correo("memes55@hotmail.com", true));
         correoList.add(new Correo("parara@outlook.com", true));
         correoList.add(new Correo("test@yahoo.com", true));
         Map<String,String> correosMap = new HashMap<String,String>();
-            System.out.print("");
+        for (Correo i : correoList) correosMap.put(i.correo, i.correo);
+        System.out.print("");
+        verificarEstados();
+        System.out.print("");
     }
 }

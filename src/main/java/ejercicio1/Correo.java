@@ -12,6 +12,12 @@ public class Correo {
         this.recibido = recibido;
     }
 
+    public Correo(boolean estado, String correo) {
+        this.correo = correo;
+        this.estado = estado;
+        this.recibido=false;
+    }
+
     public Correo() {
     }
 

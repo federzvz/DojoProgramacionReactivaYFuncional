@@ -1,45 +1,59 @@
 package ejercicio2;
 
-import reactor.core.publisher.Flux;
-import reactor.core.scheduler.Schedulers;
-import org.springframework.boot.ApplicationArguments;
-import org.springframework.boot.ApplicationRunner;
-import org.springframework.stereotype.Component;
-import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
-import java.util.function.Function;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Ejercicio2 {
+    static List<String> malasPalabras = Arrays.asList(
+            "concha",
+            "polla",
+            "culo",
+            "pete",
+            "puto",
+            "puta",
+            "huevon",
+            "pija",
+            "verga",
+            "cojer"
+    );
+
+    /*public Mono<List<String>> censurarMalasPalabras(){
+
+    }*/
+
+    public static List<String> censurarMalasPalabras(List<String> chat) {
+        List<String> auxChat = new ArrayList<>();
+        AtomicBoolean isMalaPalabra= new AtomicBoolean(false);
+        chat.stream().forEach(x -> {
+            malasPalabras.stream().forEach(mp -> {
+                if (mp.equalsIgnoreCase(x)) {
+                    auxChat.add("*****");
+                    isMalaPalabra.set(true);
+                }
+            });
+            if(!isMalaPalabra.get()){
+                auxChat.add(x);
+            }
+            isMalaPalabra.set(false);
+        });
+        return auxChat;
+    }
+
     public static void main(String[] args) {
-        List<String> malasPalabras = Arrays.asList(
-                "concha",
-                "polla",
-                "culo",
-                "pete",
-                "puto",
-                "puta",
-                "huevon",
-                "pija",
-                "verga",
-                "cojer"
-        );
         Scanner scanner = new Scanner(System.in);
-        String chatInput="";
+        String chatInput = "";
         List<String> chatList = new ArrayList<String>();
-        while(!chatInput.equalsIgnoreCase("exit")){
-            chatInput=scanner.nextLine();
+        while (!chatInput.equalsIgnoreCase("exit")) {
+            chatInput = scanner.nextLine();
             chatList.add(chatInput);
         }
-        /*Flux<List<String>> censurarMalasPalabras(){
-            return chatList.stream()
-                    .filter(x -> {
-                        return this;
-                    });
-*/
+        chatList=censurarMalasPalabras(chatList);
+        System.out.print("");
     }
 }
 
